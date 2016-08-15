@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quiron.LojaVirtual.Dominio", "..\..\..\Quiron.LojaVirtual\Quiron.LojaVirtual.Dominio\Quiron.LojaVirtual.Dominio.csproj", "{3B0735B6-450B-44D6-BAF7-978428F3C294}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quiron.LojaVirtual.Web", "..\..\..\Quiron.LojaVirtual\Quiron.LojaVirtual.Web\Quiron.LojaVirtual.Web.csproj", "{8BB09180-79FF-44B2-B5FD-F8DCF883C02D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quiron.LojaVirtual.UnitTest", "..\..\..\Quiron.LojaVirtual\Quiron.LojaVirtual.UnitTest\Quiron.LojaVirtual.UnitTest.csproj", "{D7ADEE0C-9284-48A8-B230-CEE45D5BA6BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B0735B6-450B-44D6-BAF7-978428F3C294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B0735B6-450B-44D6-BAF7-978428F3C294}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B0735B6-450B-44D6-BAF7-978428F3C294}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B0735B6-450B-44D6-BAF7-978428F3C294}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BB09180-79FF-44B2-B5FD-F8DCF883C02D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BB09180-79FF-44B2-B5FD-F8DCF883C02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BB09180-79FF-44B2-B5FD-F8DCF883C02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BB09180-79FF-44B2-B5FD-F8DCF883C02D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7ADEE0C-9284-48A8-B230-CEE45D5BA6BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7ADEE0C-9284-48A8-B230-CEE45D5BA6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7ADEE0C-9284-48A8-B230-CEE45D5BA6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7ADEE0C-9284-48A8-B230-CEE45D5BA6BF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
