@@ -7,14 +7,20 @@ using System.Web.Mvc;
 
 namespace Quiron.LojaVirtual.Web.Controllers
 {
-    public class ProdutosController : Controller
+    public class VitrineController : Controller
     {
+        #region Variaveis e Propriedades
+
         private ProdutosRepositorio repositorio = new ProdutosRepositorio();
+        private int ProdutosPagina = 3;
+
+        #endregion
 
         // GET: Produtos
-        public ActionResult Index()
+        public ActionResult ListaProdutos(int pagina = 1)
         {
-            var produtos = repositorio.Produtos.Take(10);
+            var produtos = repositorio.Produtos.OrderBy(p => p.Descricao).
+                Skip((pagina - 1) * ProdutosPagina).Take(ProdutosPagina);
 
             return View(produtos);
         }
