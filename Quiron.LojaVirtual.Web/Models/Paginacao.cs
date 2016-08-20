@@ -11,7 +11,7 @@ namespace Quiron.LojaVirtual.Web.Models
         {
             get
             {
-                return Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(ItensTotal / ItensPorPagina)));
+                return (int) Math.Ceiling((decimal) ItensTotal / ItensPorPagina);
             }
         }
     }

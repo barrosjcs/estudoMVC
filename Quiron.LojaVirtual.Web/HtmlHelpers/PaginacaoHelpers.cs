@@ -13,7 +13,7 @@ namespace Quiron.LojaVirtual.Web.HtmlHelpers
         public static MvcHtmlString PageLinks(this HtmlHelper html, Paginacao paginacao, Func<int,string> paginaUrl)
         {
             StringBuilder resultado = new StringBuilder();
-            for (int i = 1; i < paginacao.TotalPaginas; i++)
+            for (int i = 1; i <= paginacao.TotalPaginas; i++)
             {
                 TagBuilder tag = new TagBuilder("a");
 
