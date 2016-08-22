@@ -1,4 +1,5 @@
 ﻿using Quiron.LojaVirtual.Dominio.Repositorio;
+using Quiron.LojaVirtual.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,34 @@ namespace Quiron.LojaVirtual.Web.Controllers
         #region Variaveis e Propriedades
 
         private ProdutosRepositorio repositorio = new ProdutosRepositorio();
-        private int ProdutosPagina = 3;
+        private int ProdutosPorPagina = 8;
 
         #endregion
 
-        // GET: Produtos
-        public ActionResult ListaProdutos(int pagina = 1)
+        /// <summary>
+        /// Lista os Produtos
+        /// </summary>
+        /// <param name="pagina">Número da página</param>
+        /// <returns></returns>
+        public ViewResult ListaProdutos(int pagina = 1)
         {
-            var produtos = repositorio.Produtos.OrderBy(p => p.Descricao).
-                Skip((pagina - 1) * ProdutosPagina).Take(ProdutosPagina);
+            // ActionResult Subtypes: ViewResult - Renders a specified view to the response stream
+            ProdutosViewModel model = new ProdutosViewModel
+            {
+                Produtos = repositorio.Produtos.OrderBy(p => p.Descricao).
+                    Skip((pagina - 1) * ProdutosPorPagina).Take(ProdutosPorPagina),
 
-            return View(produtos);
+
+                Paginacao = new Paginacao
+                {
+                    PaginaAtual = pagina,
+                    ItensPorPagina = ProdutosPorPagina,
+                    ItensTotal = repositorio.Produtos.Count()
+                }
+            };
+
+            
+            return View(model);
         }
     }
 }
