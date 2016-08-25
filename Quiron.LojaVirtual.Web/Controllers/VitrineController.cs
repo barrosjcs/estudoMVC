@@ -22,24 +22,24 @@ namespace Quiron.LojaVirtual.Web.Controllers
         /// </summary>
         /// <param name="pagina">Número da página</param>
         /// <returns></returns>
-        public ViewResult ListaProdutos(int pagina = 1)
+        public ViewResult ListaProdutos(string categoria, int pagina = 1)
         {
             // ActionResult Subtypes: ViewResult - Renders a specified view to the response stream
-            ProdutosViewModel model = new ProdutosViewModel
-            {
-                Produtos = repositorio.Produtos.OrderBy(p => p.Descricao).
-                    Skip((pagina - 1) * ProdutosPorPagina).Take(ProdutosPorPagina),
+            ProdutosViewModel model = new ProdutosViewModel();
 
+            model.Produtos = repositorio.Produtos.
+                    Where(p => p.Categoria.Trim() == categoria || categoria == null).
+                    OrderBy(p => p.Descricao).
+                    Skip((pagina - 1) * ProdutosPorPagina).
+                    Take(ProdutosPorPagina);
 
-                Paginacao = new Paginacao
-                {
-                    PaginaAtual = pagina,
-                    ItensPorPagina = ProdutosPorPagina,
-                    ItensTotal = repositorio.Produtos.Count()
-                }
-            };
+            model.Paginacao = new Paginacao();
+            model.Paginacao.PaginaAtual = pagina;
+            model.Paginacao.ItensPorPagina = ProdutosPorPagina;
+            model.Paginacao.ItensTotal = repositorio.Produtos.Count();
 
-            
+            model.CategoriaAtual = categoria;
+
             return View(model);
         }
     }
