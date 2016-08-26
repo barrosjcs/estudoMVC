@@ -27,16 +27,17 @@ namespace Quiron.LojaVirtual.Web.Controllers
             // ActionResult Subtypes: ViewResult - Renders a specified view to the response stream
             ProdutosViewModel model = new ProdutosViewModel();
 
-            model.Produtos = repositorio.Produtos.
-                    Where(p => p.Categoria.Trim() == categoria || categoria == null).
-                    OrderBy(p => p.Descricao).
-                    Skip((pagina - 1) * ProdutosPorPagina).
-                    Take(ProdutosPorPagina);
+            model.Produtos = repositorio.Produtos.Where(p => categoria == null || p.Categoria.Trim() == categoria).
+                OrderBy(p => p.Descricao).Skip((pagina - 1) * ProdutosPorPagina).Take(ProdutosPorPagina);
 
             model.Paginacao = new Paginacao();
             model.Paginacao.PaginaAtual = pagina;
             model.Paginacao.ItensPorPagina = ProdutosPorPagina;
-            model.Paginacao.ItensTotal = repositorio.Produtos.Count();
+
+            if(categoria == null)
+                model.Paginacao.ItensTotal = repositorio.Produtos.Count();
+            else
+                model.Paginacao.ItensTotal = repositorio.Produtos.Where(p => p.Categoria.Trim() == categoria).Count();
 
             model.CategoriaAtual = categoria;
 
