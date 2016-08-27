@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quiron.LojaVirtual.Dominio.Entidades
 {
@@ -46,7 +43,6 @@ namespace Quiron.LojaVirtual.Dominio.Entidades
         {
             get { return itensCarrinho; }
         }
-
     }
 
     public class ItemCarrinho
