@@ -1,32 +1,13 @@
 ﻿using Quiron.LojaVirtual.Dominio.Entidades;
 using Quiron.LojaVirtual.Dominio.Repositorio;
 using Quiron.LojaVirtual.Web.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Quiron.LojaVirtual.Web.Controllers
 {
     public class CarrinhoController : Controller
     {
-        private Carrinho Carrinho
-        {
-            get
-            {
-                if (Session["Carrinho"] == null)
-                    return new Carrinho();
-
-                return (Carrinho)Session["Carrinho"];
-            }
-
-            set
-            {
-                Session["Carrinho"] = value;
-            }
-        }
-
         private ProdutosRepositorio repositorio = new ProdutosRepositorio();
 
         // GET: Carrinho
@@ -35,9 +16,7 @@ namespace Quiron.LojaVirtual.Web.Controllers
             Produto produto = repositorio.Produtos.FirstOrDefault(p => p.ProdutoId == produtoId);
 
             if(produto != null)
-            {
-                Carrinho.AdicionarItem(produto, 1);
-            }
+                ObterCarrinho().AdicionarItem(produto, 1);
 
             return RedirectToAction("Index", new { returnUrl });
         }
@@ -47,9 +26,7 @@ namespace Quiron.LojaVirtual.Web.Controllers
             Produto produto = repositorio.Produtos.FirstOrDefault(p => p.ProdutoId == produtoId);
 
             if(produto != null)
-            {
-                Carrinho.RemoverItem(produto);
-            }
+                ObterCarrinho().RemoverItem(produto);
 
             return RedirectToAction("Index", new { returnUrl });
         }
@@ -58,9 +35,28 @@ namespace Quiron.LojaVirtual.Web.Controllers
         {
             return View(new CarrinhoViewModel
             {
-                Carrinho = this.Carrinho,
+                Carrinho = ObterCarrinho(),
                 ReturnUrl = returnUrl
             });
+        }
+
+        public PartialViewResult Resumo()
+        {
+            Carrinho carrinho = ObterCarrinho();
+            return PartialView(carrinho);
+        }
+
+        private Carrinho ObterCarrinho()
+        {
+            Carrinho carrinho = (Carrinho)Session["Carrinho"];
+ 
+            if (carrinho == null)
+            {
+                carrinho = new Carrinho();
+                Session["Carrinho"] = carrinho;
+            }
+ 
+            return carrinho;
         }
     }
 }
