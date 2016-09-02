@@ -10,13 +10,32 @@ namespace Quiron.LojaVirtual.Web.Controllers
     {
         private ProdutosRepositorio repositorio = new ProdutosRepositorio();
 
+        private Carrinho CarrinhoAtual
+        {
+            get
+            {
+                Carrinho carrinho = (Carrinho)Session["Carrinho"];
+
+                if (carrinho == null)
+                {
+                    carrinho = new Carrinho();
+                    Session["Carrinho"] = carrinho;
+                }
+
+                return carrinho;
+            }
+            set
+            {
+                Session["Carrinho"] = value;
+            }
+        }
         // GET: Carrinho
         public RedirectToRouteResult Adicionar(int produtoId, string returnUrl)
         {
             Produto produto = repositorio.Produtos.FirstOrDefault(p => p.ProdutoId == produtoId);
 
             if(produto != null)
-                ObterCarrinho().AdicionarItem(produto, 1);
+                CarrinhoAtual.AdicionarItem(produto, 1);
 
             return RedirectToAction("Index", new { returnUrl });
         }
@@ -26,7 +45,7 @@ namespace Quiron.LojaVirtual.Web.Controllers
             Produto produto = repositorio.Produtos.FirstOrDefault(p => p.ProdutoId == produtoId);
 
             if(produto != null)
-                ObterCarrinho().RemoverItem(produto);
+                CarrinhoAtual.RemoverItem(produto);
 
             return RedirectToAction("Index", new { returnUrl });
         }
@@ -35,28 +54,20 @@ namespace Quiron.LojaVirtual.Web.Controllers
         {
             return View(new CarrinhoViewModel
             {
-                Carrinho = ObterCarrinho(),
+                Carrinho = CarrinhoAtual,
                 ReturnUrl = returnUrl
             });
         }
 
         public PartialViewResult Resumo()
         {
-            Carrinho carrinho = ObterCarrinho();
+            Carrinho carrinho = CarrinhoAtual;
             return PartialView(carrinho);
         }
 
-        private Carrinho ObterCarrinho()
+        public ViewResult FecharPedido()
         {
-            Carrinho carrinho = (Carrinho)Session["Carrinho"];
- 
-            if (carrinho == null)
-            {
-                carrinho = new Carrinho();
-                Session["Carrinho"] = carrinho;
-            }
- 
-            return carrinho;
+            return View(new Pedido());
         }
     }
 }
