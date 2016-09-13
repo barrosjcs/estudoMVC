@@ -19,7 +19,7 @@
                 <tr>
                     <th class="text-right">#Id</th>
                     <th>Nome</th>
-                    <th class="text-right">Preço</th>
+                    <th>Preço</th>
                     <th class="text-center">Excluir</th>
                 </tr>
             </thead>
@@ -39,8 +39,10 @@
                         <td>
                             @using (Html.BeginForm("Excluir", "Produto"))
                             {
-                                @Html.Hidden("ProdutoId", item.ProdutoId)
-                                <input type="submit" class="btn btn-default btn-xs" value="Excluir" />
+                                <div class="text-center">
+                                    @Html.Hidden("ProdutoId", item.ProdutoId)
+                                    <input type="submit" class="btn btn-default btn-xs" value="Excluir" />
+                                </div>
                             }
                         </td>
                     </tr>
