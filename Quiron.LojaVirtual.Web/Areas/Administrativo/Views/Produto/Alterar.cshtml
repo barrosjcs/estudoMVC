@@ -7,10 +7,17 @@
 
 <div class="panel">
     <div class="panel-heading">
-        <h3>Alterar - @Model.Nome</h3>
+        @if (Model.ProdutoId == 0)
+        {
+            <h3>Incluir</h3>
+        }
+        else
+        {
+            <h3>Alterar - @Model.Nome</h3>
+        }
     </div>
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Alterar", "Produto"))
     {
         @*Este elemento é um Html Helper que trará todas as propriedades do modelo, porém não tratará o layout*@
         @*@Html.EditorForModel();*@
@@ -45,3 +52,23 @@
     }
     
 </div>
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+
+<script>
+    $("#Preco").blur(function (e) {
+        var valor = $(this).val();
+        valor = valor.replace(/\D/g, ""); //Remove tudo o que não é dígito
+        valor = valor.replace(/(\d{2})$/, ",$1"); //Coloca a virgula
+        valor = valor.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2"); //Coloca o primeiro ponto
+        var qtdLoop = (valor.length - 3) / 3;
+        var count = 0;
+        while (qtdLoop > count) {
+            count++;
+            valor = valor.replace(/(\d+)(\d{3}.*)/, "$1.$2"); //Coloca o resto dos pontos
+        }
+        valor = valor.replace(/^(0)(\d)/g, "$2"); //Coloca hífen entre o quarto e o quinto dígitos
+        
+        $(this).val(valor);
+    });
+</script>
