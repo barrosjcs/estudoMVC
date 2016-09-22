@@ -37,13 +37,15 @@
                             @item.Preco.ToString("c")
                         </td>
                         <td>
-                            @using (Html.BeginForm("Excluir", "Produto"))
+                            @*@using (Html.BeginForm("Excluir", "Produto"))
                             {
                                 <div class="text-center">
                                     @Html.Hidden("ProdutoId", item.ProdutoId)
                                     <input type="submit" class="btn btn-default btn-xs" value="Excluir" />
                                 </div>
-                            }
+                            }*@
+                            <input type="submit" class="btn btn-default btn-xs" value="Excluir" id="@item.ProdutoId"
+                                   name="@item.Nome"/>
                         </td>
                     </tr>
                 }
@@ -51,3 +53,5 @@
         </table>
     </div>
 </div>
+
+@Html.Partial("Confirmacao")
