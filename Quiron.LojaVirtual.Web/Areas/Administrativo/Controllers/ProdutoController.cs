@@ -8,11 +8,12 @@ using System.Web.Mvc;
 
 namespace Quiron.LojaVirtual.Web.Areas.Administrativo.Controllers
 {
+    [Authorize]
     public class ProdutoController : Controller
     {
         private ProdutosRepositorio repositorio = new ProdutosRepositorio();
 
-        // GET: Administrativo/Produto
+        // GET: Administrativo/Produto      
         public ActionResult Index()
         {
             var produtos = repositorio.Produtos;
