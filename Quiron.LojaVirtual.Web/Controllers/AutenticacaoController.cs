@@ -1,9 +1,5 @@
 ﻿using Quiron.LojaVirtual.Dominio.Entidades;
 using Quiron.LojaVirtual.Dominio.Repositorio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -18,6 +14,7 @@ namespace Quiron.LojaVirtual.Web.Controllers
             return View(new Administrador());
         }
 
+        [HttpPost]
         public ActionResult Login(Administrador administrador, string returnUrl)
         {
             if(ModelState.IsValid)
@@ -47,7 +44,6 @@ namespace Quiron.LojaVirtual.Web.Controllers
                     ModelState.AddModelError("", "Administrador não localizado");
                 }
             }
-
 
             return View(new Administrador());
         }
