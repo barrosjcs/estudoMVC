@@ -1,4 +1,5 @@
-﻿using Quiron.LojaVirtual.Dominio.Repositorio;
+﻿using Quiron.LojaVirtual.Dominio.Entidades;
+using Quiron.LojaVirtual.Dominio.Repositorio;
 using Quiron.LojaVirtual.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,18 @@ namespace Quiron.LojaVirtual.Web.Controllers
             model.CategoriaAtual = categoria;
 
             return View(model);
+        }
+
+        public FileContentResult ObterImagem(int produtoId)
+        {
+            Produto prod = repositorio.Produtos.FirstOrDefault(p => p.ProdutoId == produtoId);
+
+            if (prod != null)
+            {
+                return File(prod.Imagem, prod.ImagemMimeType);
+            }
+
+            return null;
         }
     }
 }
