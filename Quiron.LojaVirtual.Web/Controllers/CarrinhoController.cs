@@ -11,58 +11,38 @@ namespace Quiron.LojaVirtual.Web.Controllers
     {
         private ProdutosRepositorio repositorio = new ProdutosRepositorio();
 
-        private Carrinho CarrinhoAtual
-        {
-            get
-            {
-                Carrinho carrinho = (Carrinho)Session["Carrinho"];
-
-                if (carrinho == null)
-                {
-                    carrinho = new Carrinho();
-                    Session["Carrinho"] = carrinho;
-                }
-
-                return carrinho;
-            }
-            set
-            {
-                Session["Carrinho"] = value;
-            }
-        }
         // GET: Carrinho
-        public RedirectToRouteResult Adicionar(int produtoId, string returnUrl)
+        public RedirectToRouteResult Adicionar(Carrinho carrinho, int produtoId, string returnUrl)
         {
             Produto produto = repositorio.Produtos.FirstOrDefault(p => p.ProdutoId == produtoId);
 
             if(produto != null)
-                CarrinhoAtual.AdicionarItem(produto, 1);
+                carrinho.AdicionarItem(produto, 1);
 
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToRouteResult Remover(int produtoId, string returnUrl)
+        public RedirectToRouteResult Remover(Carrinho carrinho, int produtoId, string returnUrl)
         {
             Produto produto = repositorio.Produtos.FirstOrDefault(p => p.ProdutoId == produtoId);
 
             if(produto != null)
-                CarrinhoAtual.RemoverItem(produto);
+                carrinho.RemoverItem(produto);
 
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public ViewResult Index(string returnUrl)
+        public ViewResult Index(Carrinho carrinho, string returnUrl)
         {
             return View(new CarrinhoViewModel
             {
-                Carrinho = CarrinhoAtual,
+                Carrinho = carrinho,
                 ReturnUrl = returnUrl
             });
         }
 
-        public PartialViewResult Resumo()
+        public PartialViewResult Resumo(Carrinho carrinho)
         {
-            Carrinho carrinho = CarrinhoAtual;
             return PartialView(carrinho);
         }
 
@@ -72,7 +52,7 @@ namespace Quiron.LojaVirtual.Web.Controllers
         }
 
         [HttpPost]
-        public ViewResult FecharPedido(Pedido pedido)
+        public ViewResult FecharPedido(Carrinho carrinho, Pedido pedido)
         {
             EmailConfiguracoes email = new EmailConfiguracoes
             {
@@ -81,15 +61,15 @@ namespace Quiron.LojaVirtual.Web.Controllers
 
             EmailPedido emailPedido = new EmailPedido(email);
 
-            if(!CarrinhoAtual.ItensCarrinho.Any())
+            if(!carrinho.ItensCarrinho.Any())
             {
                 ModelState.AddModelError("", "Não foi possível concluir o pedido, seu carrinho está vazio!");
             }
 
             if(ModelState.IsValid)
             {
-                emailPedido.ProcessarPedido(CarrinhoAtual, pedido);
-                CarrinhoAtual.LimparCarrinho();
+                emailPedido.ProcessarPedido(carrinho, pedido);
+                carrinho.LimparCarrinho();
                 return View("PedidoConcluido");
             }
             else
