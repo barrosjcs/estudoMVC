@@ -7,6 +7,8 @@ namespace Quiron.LojaVirtual.Web
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+            routes.MapMvcAttributeRoutes();
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             /* Roteamento definido com seu controller e action(view). Assim não mostrará estas informações na Url.
