@@ -11,13 +11,13 @@ namespace Quiron.LojaVirtual.Web.Controllers
     {
         private ProdutosRepositorio repositorio = new ProdutosRepositorio();
 
-        // GET: Carrinho
-        public RedirectToRouteResult Adicionar(Carrinho carrinho, int produtoId, string returnUrl)
+        
+        public RedirectToRouteResult Adicionar(Carrinho carrinho, int produtoId, int  quantidade, string returnUrl)
         {
             Produto produto = repositorio.Produtos.FirstOrDefault(p => p.ProdutoId == produtoId);
 
             if(produto != null)
-                carrinho.AdicionarItem(produto, 1);
+                carrinho.AdicionarItem(produto, quantidade);
 
             return RedirectToAction("Index", new { returnUrl });
         }

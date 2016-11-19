@@ -1,10 +1,7 @@
 ﻿using Quiron.LojaVirtual.Dominio.Entidades;
 using Quiron.LojaVirtual.Dominio.Repositorio;
 using Quiron.LojaVirtual.Web.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Quiron.LojaVirtual.Web.Controllers
@@ -13,8 +10,8 @@ namespace Quiron.LojaVirtual.Web.Controllers
     {
         #region Variaveis e Propriedades
 
-        private ProdutosRepositorio repositorio = new ProdutosRepositorio();
-        private int ProdutosPorPagina = 8;
+        private readonly ProdutosRepositorio repositorio = new ProdutosRepositorio();
+        private readonly int ProdutosPorPagina = 8;
 
         #endregion
 
@@ -38,7 +35,7 @@ namespace Quiron.LojaVirtual.Web.Controllers
             if(categoria == null)
                 model.Paginacao.ItensTotal = repositorio.Produtos.Count();
             else
-                model.Paginacao.ItensTotal = repositorio.Produtos.Where(p => p.Categoria.Trim() == categoria).Count();
+                model.Paginacao.ItensTotal = repositorio.Produtos.Count(p => p.Categoria.Trim() == categoria);
 
             model.CategoriaAtual = categoria;
 

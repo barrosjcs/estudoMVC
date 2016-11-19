@@ -16,10 +16,20 @@
         @foreach (var item in Model.Carrinho.ItensCarrinho)
         {
             <tr>
-                <td class="text-center">@item.Quantidade</td>
+                @*<td class="text-center">@item.Quantidade</td>*@
                 <td class="text-center">@item.Produto.Nome</td>
                 <td class="text-right">@item.Produto.Preco.ToString("c")</td>
                 <td class="text-right">@((item.Quantidade * item.Produto.Preco).ToString("c"))</td>
+                <td>
+                    @using (Html.BeginForm("Adicionar", "Carrinho"))
+                    {
+                        @Html.Hidden("ProdutoId", item.Produto.ProdutoId)
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                        @Html.TextBox("quantidade", item.Quantidade, new { @class = "quantidade-textbox", @type = "number",
+                                        min = "1", max = "10"})
+                        <input class="btn btn-sm btn-danger" type="submit" value="Atualizar" />
+                    }
+                </td>
                 <td>
                     @using (Html.BeginForm("Remover", "Carrinho"))
                     {
@@ -42,3 +52,22 @@
     <a class="btn btn-primary" href="@Model.ReturnUrl">Continuar Comprando</a>
     @Html.ActionLink("Fechar o pedido", "FecharPedido", "Carrinho", new { @class="btn btn-primary"})
 </div>
+
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+
+<script>
+    $(".quantidade-textbox").keyup(function () {
+        var num = $(".quantidade-textbox").val()
+        if (num != "") {
+            var result = parseInt(num);
+            if (result > 0) {
+                if (result > 10)
+                    $(".quantidade-textbox").val('10');
+            }
+            else
+                $(".quantidade-textbox").val('1');
+        }
+        else
+            $(".quantidade-textbox").val('');
+    });
+</script>

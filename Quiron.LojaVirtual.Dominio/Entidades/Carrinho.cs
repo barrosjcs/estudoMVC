@@ -20,7 +20,7 @@ namespace Quiron.LojaVirtual.Dominio.Entidades
             }
             else
             {
-                itemCarrinho.Quantidade += quantidade;
+                itemCarrinho.Quantidade = quantidade;
             }
         }
 
