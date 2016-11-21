@@ -18,46 +18,48 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<script>
-    $(function () {
-        //Abrir o modal
-        $(".btn-xs").click(function (e) {
-            var id = this.id;
-            var nome = this.name;
-            $("#deleteModal .modal-body input[type=hidden]").val(id);
-            $("#deleteModal .modal-body span").text(nome);
-            $("#deleteModal").modal('show');
-        });
+@section Scripts{
+    <script>
+        $(function () {
+            //Abrir o modal
+            $(".btn-xs").click(function (e) {
+                var id = this.id;
+                var nome = this.name;
+                $("#deleteModal .modal-body input[type=hidden]").val(id);
+                $("#deleteModal .modal-body span").text(nome);
+                $("#deleteModal").modal('show');
+            });
 
-        $("#deleteModal .modal-footer button").click(function (e) {
-            var url = "/Administrativo/Produto/Excluir/";
-            var id = $(".modal-body input[type=hidden]").val();
-            var rowNo = "#row-" + id;
+            $("#deleteModal .modal-footer button").click(function (e) {
+                var url = "/Administrativo/Produto/Excluir/";
+                var id = $(".modal-body input[type=hidden]").val();
+                var rowNo = "#row-" + id;
 
-            $.ajax({
-                url:url,
-                type: 'post',
-                dataType: 'json',
-                data: { produtoId: id },
-                beforeSend: function () {
-                    var loading = "<div id='excluindo'><em>Excluindo</em>&nbsp;<i class='glyphicon glyphicon-refresh icon-refresh-animate'></i></div>";
-                    $('#deleteModal .modal-header h4').after(loading);
-                },
-                success: function () {
+                $.ajax({
+                    url:url,
+                    type: 'post',
+                    dataType: 'json',
+                    data: { produtoId: id },
+                    beforeSend: function () {
+                        var loading = "<div id='excluindo'><em>Excluindo</em>&nbsp;<i class='glyphicon glyphicon-refresh icon-refresh-animate'></i></div>";
+                        $('#deleteModal .modal-header h4').after(loading);
+                    },
+                    success: function () {
 
-                    $('#deleteModal').modal('hide');
+                        $('#deleteModal').modal('hide');
 
-                    $(rowNo).animate({ opacity: 0.0 }, 400, function () {
-                        $(rowNo).remove();
-                    });
-                },
-                complete: function (data) {
-                    $("#excluindo").remove();
-                    $("#divexcluir").empty();
-                    $("#divexcluir").addClass("alert alert-success");
-                    $("#divexcluir").html(data.responseText);
-                }
+                        $(rowNo).animate({ opacity: 0.0 }, 400, function () {
+                            $(rowNo).remove();
+                        });
+                    },
+                    complete: function (data) {
+                        $("#excluindo").remove();
+                        $("#divexcluir").empty();
+                        $("#divexcluir").addClass("alert alert-success");
+                        $("#divexcluir").html(data.responseText);
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
+}

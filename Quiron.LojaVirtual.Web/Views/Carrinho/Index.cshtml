@@ -53,21 +53,22 @@
     @Html.ActionLink("Fechar o pedido", "FecharPedido", "Carrinho", new { @class="btn btn-primary"})
 </div>
 
-<script src="~/scripts/jquery-1.10.2.min.js"></script>
-
-<script>
-    $(".quantidade-textbox").keyup(function () {
-        var num = $(".quantidade-textbox").val()
-        if (num != "") {
-            var result = parseInt(num);
-            if (result > 0) {
-                if (result > 10)
-                    $(".quantidade-textbox").val('10');
+@* Área que será renderizado os scripts que ficarão posterior a chamada do jquery *@
+@section Scripts{
+    <script>
+        $(".quantidade-textbox").keyup(function () {
+            var num = $(".quantidade-textbox").val()
+            if (num != "") {
+                var result = parseInt(num);
+                if (result > 0) {
+                    if (result > 10)
+                        $(".quantidade-textbox").val('10');
+                }
+                else
+                    $(".quantidade-textbox").val('1');
             }
             else
-                $(".quantidade-textbox").val('1');
-        }
-        else
-            $(".quantidade-textbox").val('');
-    });
-</script>
+                $(".quantidade-textbox").val('');
+        });
+    </script>
+}
