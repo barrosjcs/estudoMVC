@@ -86,22 +86,21 @@
 
 </div>
 
-@section Scripts{
-    <script>
-        $("#Preco").blur(function (e) {
-            var valor = $(this).val();
-            valor = valor.replace(/\D/g, ""); //Remove tudo o que não é dígito
-            valor = valor.replace(/(\d{2})$/, ",$1"); //Coloca a virgula
-            valor = valor.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2"); //Coloca o primeiro ponto
-            var qtdLoop = (valor.length - 3) / 3;
-            var count = 0;
-            while (qtdLoop > count) {
-                count++;
-                valor = valor.replace(/(\d+)(\d{3}.*)/, "$1.$2"); //Coloca o resto dos pontos
-            }
-            valor = valor.replace(/^(0)(\d)/g, "$2"); //Coloca hífen entre o quarto e o quinto dígitos
 
-            $(this).val(valor);
-        });
-    </script>
-}
+<script>
+    $("#Preco").blur(function (e) {
+        var valor = $(this).val();
+        valor = valor.replace(/\D/g, ""); //Remove tudo o que não é dígito
+        valor = valor.replace(/(\d{2})$/, ",$1"); //Coloca a virgula
+        valor = valor.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2"); //Coloca o primeiro ponto
+        var qtdLoop = (valor.length - 3) / 3;
+        var count = 0;
+        while (qtdLoop > count) {
+            count++;
+            valor = valor.replace(/(\d+)(\d{3}.*)/, "$1.$2"); //Coloca o resto dos pontos
+        }
+        valor = valor.replace(/^(0)(\d)/g, "$2"); //Coloca hífen entre o quarto e o quinto dígitos
+
+        $(this).val(valor);
+    });
+</script>
