@@ -11,8 +11,6 @@ $(function () {
 
 
 app.iniciarlizar = function () {
-
-
     app.ObterMarcas();
     app.ObterEsportes();
     app.ObterClubesNacionais();

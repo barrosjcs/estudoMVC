@@ -34,5 +34,20 @@ namespace Quiron.LojaVirtual.Web.V2.Controllers
 
             return Json(categoria, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult ObterMarcas()
+        {
+            var obterMarcas = repositorio.ObterMarcas();
+
+            var marcas = from m in obterMarcas
+                         select new
+                         {
+                             m.MarcaDescricao,
+                             MarcaDescricaoSeo = m.MarcaDescricao.ToSeoUrl(),
+                             m.MarcaCodigo
+                        };
+
+            return Json(marcas, JsonRequestBehavior.AllowGet);
+        }
     }
 }
