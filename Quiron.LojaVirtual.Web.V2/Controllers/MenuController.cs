@@ -49,5 +49,35 @@ namespace Quiron.LojaVirtual.Web.V2.Controllers
 
             return Json(marcas, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult ObterClubesInternacionais()
+        {
+            var obterClubesInternacionais = repositorio.ObterClubesInternacionais();
+
+            var clubes = from c in obterClubesInternacionais
+                         select new
+                         {
+                             Clube = c.LinhaDescricao,
+                             ClubeSeo = c.LinhaDescricao.ToSeoUrl(),
+                             ClubeCodigo = c.LinhaCodigo
+                         };
+
+            return Json(clubes, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObterClubesNacionais()
+        {
+            var obterClubesNacionais = repositorio.ObterClubesNacionais();
+
+            var clubes = from c in obterClubesNacionais
+                         select new
+                         {
+                             Clube = c.LinhaDescricao,
+                             ClubeSeo = c.LinhaDescricao.ToSeoUrl(),
+                             ClubeCodigo = c.LinhaCodigo
+                         };
+
+            return Json(clubes, JsonRequestBehavior.AllowGet);
+        }
     }
 }
