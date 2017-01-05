@@ -5,16 +5,17 @@ $(function () {
     $('#main-menu').smartmenus();
     /* Ecommerce sidebar */
     $('.sidey .nav').navgoco();
-    app.iniciarlizar();
+    app.inicializar();
 });
 
 
 
-app.iniciarlizar = function () {
+app.inicializar = function () {
     app.ObterMarcas();
     app.ObterEsportes();
     app.ObterClubesNacionais();
     app.ObterInternacionais();
+    app.ObterSelecoes();
 }
 
 
@@ -32,6 +33,15 @@ app.ObterInternacionais = function () {
     $.getJSON('/menu/obterclubesinternacionais', function (data) {
         $(data).each(function () {
             $("#clubesinternacionais").append("<li><a href='/nav/times/" + this.ClubeCodigo + "/" + this.ClubeSeo + "'>" + this.Clube + "</a></li>");
+        });
+    });
+};
+
+app.ObterSelecoes = function () {
+
+    $.getJSON('/menu/obterselecoes', function (data) {
+        $(data).each(function () {
+            $("#selecoes").append("<li><a href='/nav/times/" + this.ClubeCodigo + "/" + this.ClubeSeo + "'>" + this.Clube + "</a></li>");
         });
     });
 };

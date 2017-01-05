@@ -7,6 +7,5 @@ using System.Threading.Tasks;
 namespace Quiron.LojaVirtual.Dominio.Entidades.Vitrine
 {
     public class ClubesInternacionais : Clubes
-    {
-    }
+    { }
 }

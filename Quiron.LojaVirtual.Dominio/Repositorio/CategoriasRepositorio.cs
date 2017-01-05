@@ -30,5 +30,10 @@ namespace Quiron.LojaVirtual.Dominio.Repositorio
         {
             return context.ClubesNacionais.OrderBy(c => c.LinhaDescricao);
         }
+
+        public IEnumerable<Selecoes> ObterSelecoes()
+        {
+            return context.Selecoes.OrderBy(c => c.LinhaDescricao);
+        }
     }
 }
